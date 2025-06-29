@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra Seu Perfil de Afiliado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #7c3aed, #312e81);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .start-screen h1 {
+            color: #1f2937;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .start-screen p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .feature::before {
+            content: "✓";
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .question h2 {
+            color: #1f2937;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        .option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+
+        .result {
+            text-align: center;
+        }
+
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 20px;
+            font-weight: bold;
+        }
+
+        .result h2 {
+            color: #1f2937;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .result-subtitle {
+            color: #6b7280;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .result-description {
+            color: #374151;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .tips {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .tips h3 {
+            color: #1f2937;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: #3b82f6;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .next-steps {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            color: #1e40af;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .next-steps p {
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        .result-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .start-screen h1 {
+                font-size: 2rem;
+            }
+            
+            .question h2 {
+                font-size: 1.5rem;
+            }
+            
+            .result-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tela Inicial -->
+        <div id="start-screen" class="start-screen">
+            <div style="font-size: 4rem; margin-bottom: 20px;">📈</div>
+            <h1>Descubra Seu Perfil de Afiliado</h1>
+            <p>Responda 8 perguntas rápidas e descubra qual estratégia de marketing de afiliados é perfeita para você!</p>
+            
+            <div class="features">
+                <div class="feature">Estratégias personalizadas</div>
+                <div class="feature">Baseado em milhares de afiliados</div>
+                <div class="feature">Dicas práticas incluídas</div>
+            </div>
+
+            <button class="btn" onclick="startQuiz()">Começar Quiz →</button>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quiz-screen" class="hidden">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Pergunta <span id="current-q">1</span> de 8</span>
+                    <span id="progress-percent">13%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 13%"></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <h2 id="question-text"></h2>
+                <div id="options" class="options"></div>
+            </div>
+        </div>
+
+        <!-- Resultado -->
+        <div id="result-screen" class="result hidden">
+            <div id="result-icon" class="result-icon"></div>
+            <h2 id="result-title"></h2>
+            <p id="result-subtitle" class="result-subtitle"></p>
+            <p id="result-description" class="result-description"></p>
+
+            <div class="tips">
+                <h3>🎯 Suas Estratégias Ideais:</h3>
+                <ul id="result-tips"></ul>
+            </div>
+
+            <div class="next-steps">
+                <h3>🚀 Próximos Passos:</h3>
+                <p id="result-next-steps"></p>
+            </div>
+
+            <div class="result-buttons">
+                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Refazer Quiz</button>
+                <button class="btn" onclick="copyResult()">📋 Copiar Resultado</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é sua experiência com marketing digital?",
+                options: [
+                    { text: "Sou completamente iniciante", value: "iniciante" },
+                    { text: "Tenho conhecimento básico", value: "basico" },
+                    { text: "Tenho experiência intermediária", value: "intermediario" },
+                    { text: "Sou experiente na área", value: "avancado" }
+                ]
+            },
+            {
+                question: "Quanto tempo você pode dedicar diariamente ao marketing de afiliados?",
+                options: [
+                    { text: "Menos de 1 hora", value: "pouco" },
+                    { text: "1-3 horas", value: "moderado" },
+                    { text: "3-6 horas", value: "bastante" },
+                    { text: "Mais de 6 horas", value: "muito" }
+                ]
+            },
+            {
+                question: "Qual tipo de conteúdo você mais gosta de criar?",
+                options: [
+                    { text: "Vídeos e stories", value: "video" },
+                    { text: "Textos e blogs", value: "texto" },
+                    { text: "Posts em redes sociais", value: "social" },
+                    { text: "Não gosto de criar conteúdo", value: "nenhum" }
+                ]
+            },
+            {
+                question: "Qual é seu objetivo principal com marketing de afiliados?",
+                options: [
+                    { text: "Renda extra de R$ 500-2000/mês", value: "extra" },
+                    { text: "Substituir minha renda atual", value: "principal" },
+                    { text: "Construir um negócio escalável", value: "negocio" },
+                    { text: "Apenas experimentar", value: "teste" }
+                ]
+            },
+            {
+                question: "Você já tentou ganhar dinheiro online antes?",
+                options: [
+                    { text: "Nunca tentei", value: "nunca" },
+                    { text: "Tentei mas não deu certo", value: "tentei" },
+                    { text: "Já tive alguns resultados", value: "alguns" },
+                    { text: "Já ganho dinheiro online regularmente", value: "regular" }
+                ]
+            },
+            {
+                question: "Qual nicho mais te interessa?",
+                options: [
+                    { text: "Saúde e bem-estar", value: "saude" },
+                    { text: "Tecnologia e gadgets", value: "tech" },
+                    { text: "Educação e cursos", value: "educacao" },
+                    { text: "Moda e beleza", value: "moda" }
+                ]
+            },
+            {
+                question: "Como você se descreveria em vendas?",
+                options: [
+                    { text: "Tenho medo de vender", value: "medo" },
+                    { text: "Sou tímido mas consigo", value: "timido" },
+                    { text: "Sou natural em vendas", value: "natural" },
+                    { text: "Sou muito persuasivo", value: "persuasivo" }
+                ]
+            },
+            {
+                question: "Qual seu orçamento inicial para investir?",
+                options: [
+                    { text: "R$ 0 - 200", value: "baixo" },
+                    { text: "R$ 200 - 500", value: "medio" },
+                    { text: "R$ 500 - 1000", value: "alto" },
+                    { text: "Mais de R$ 1000", value: "muito_alto" }
+                ]
+            }
+        ];
+
+        const results = {
+            iniciante: {
+                title: "🌱 Iniciante Estratégico",
+                subtitle: "Você está começando, mas com potencial!",
+                description: "Você tem o perfil ideal para começar no marketing de afiliados com uma abordagem estruturada e gradual.",
+                tips: [
+                    "Comece com produtos de nicho que você conhece bem",
+                    "Foque em aprender antes de investir muito dinheiro",
+                    "Use plataformas gratuitas como Instagram e TikTok",
+                    "Teste diferentes produtos para encontrar o que converte melhor"
+                ],
+                nextSteps: "Seu próximo passo: Escolha um nicho, crie contas nas redes sociais e comece a estudar seu público-alvo.",
+                color: "#10b981",
+                icon: "🌱"
+            },
+            criador: {
+                title: "🎨 Criador de Conteúdo",
+                subtitle: "Sua força está na criação!",
+                description: "Você tem talento para criar conteúdo envolvente e pode usar isso para construir uma audiência fiel.",
+                tips: [
+                    "Crie conteúdo de valor antes de promover produtos",
+                    "Use storytelling para conectar com sua audiência",
+                    "Diversifique entre vídeos, posts e stories",
+                    "Seja autêntico nas suas recomendações"
+                ],
+                nextSteps: "Seu próximo passo: Defina seu nicho, crie um calendário de conteúdo e comece a construir sua audiência.",
+                color: "#8b5cf6",
+                icon: "🎨"
+            },
+            vendedor: {
+                title: "💰 Vendedor Nato",
+                subtitle: "Você tem o dom da persuasão!",
+                description: "Você possui habilidades naturais de vendas e pode ter sucesso com estratégias mais diretas.",
+                tips: [
+                    "Use técnicas de copywriting em suas promoções",
+                    "Crie senso de urgência e escassez",
+                    "Faça webinars e lives para vender",
+                    "Foque em produtos de ticket alto"
+                ],
+                nextSteps: "Seu próximo passo: Escolha produtos com comissões altas, crie funis de venda e invista em tráfego pago.",
+                color: "#3b82f6",
+                icon: "💰"
+            },
+            especialista: {
+                title: "🚀 Especialista em Nicho",
+                subtitle: "Você pode dominar um mercado específico!",
+                description: "Você tem experiência e conhecimento para se tornar uma autoridade em um nicho específico.",
+                tips: [
+                    "Escolha um nicho que você domina profundamente",
+                    "Crie produtos próprios além de promover como afiliado",
+                    "Monte uma lista de email segmentada",
+                    "Invista em ferramentas profissionais de marketing"
+                ],
+                nextSteps: "Seu próximo passo: Defina seu nicho de autoridade, crie um site profissional e desenvolva uma estratégia de conteúdo avançada.",
+                color: "#ef4444",
+                icon: "🚀"
+            }
+        };
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('current-q').textContent = currentQuestion + 1;
+            
+            const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
+            document.getElementById('progress-percent').textContent = progress + '%';
+            document.getElementById('progress-fill').style.width = progress + '%';
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option.text;
+                optionElement.onclick = () => selectAnswer(option.value);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectAnswer(value) {
+            answers.push(value);
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function calculateResult() {
+            const profile = {
+                iniciante: 0,
+                criador: 0,
+                vendedor: 0,
+                especialista: 0
+            };
+
+            answers.forEach((answer, index) => {
+                switch (index) {
+                    case 0: // experiência
+                        if (answer === 'iniciante') profile.iniciante += 2;
+                        if (answer === 'basico') profile.iniciante += 1;
+                        if (answer === 'intermediario') profile.especialista += 1;
+                        if (answer === 'avancado') profile.especialista += 2;
+                        break;
+                    case 1: // tempo
+                        if (answer === 'pouco') profile.iniciante += 1;
+                        if (answer === 'moderado') profile.criador += 1;
+                        if (answer === 'bastante') profile.vendedor += 1;
+                        if (answer === 'muito') profile.especialista += 2;
+                        break;
+                    case 2: // conteúdo
+                        if (answer === 'video') profile.criador += 2;
+                        if (answer === 'texto') profile.criador += 1;
+                        if (answer === 'social') profile.criador += 1;
+                        if (answer === 'nenhum') profile.vendedor += 1;
+                        break;
+                    case 3: // objetivo
+                        if (answer === 'extra') profile.iniciante += 1;
+                        if (answer === 'principal') profile.vendedor += 2;
+                        if (answer === 'negocio') profile.especialista += 2;
+                        if (answer === 'teste') profile.iniciante += 2;
+                        break;
+                    case 4: // experiência online
+                        if (answer === 'nunca') profile.iniciante += 2;
+                        if (answer === 'tentei') profile.iniciante += 1;
+                        if (answer === 'alguns') profile.vendedor += 1;
+                        if (answer === 'regular') profile.especialista += 2;
+                        break;
+                    case 5: // nicho
+                        profile.especialista += 1;
+                        break;
+                    case 6: // vendas
+                        if (answer === 'medo') profile.criador += 2;
+                        if (answer === 'timido') profile.criador += 1;
+                        if (answer === 'natural') profile.vendedor += 2;
+                        if (answer === 'persuasivo') profile.vendedor += 2;
+                        break;
+                    case 7: // orçamento
+                        if (answer === 'baixo') profile.iniciante += 1;
+                        if (answer === 'medio') profile.criador += 1;
+                        if (answer === 'alto') profile.vendedor += 1;
+                        if (answer === 'muito_alto') profile.especialista += 1;
+                        break;
+                }
+            });
+
+            const maxScore = Math.max(...Object.values(profile));
+            return Object.keys(profile).find(key => profile[key] === maxScore) || 'iniciante';
+        }
+
+        function showResult() {
+            const resultType = calculateResult();
+            const result = results[resultType];
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('result-icon').style.backgroundColor = result.color;
+            document.getElementById('result-icon').textContent = result.icon;
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-subtitle').textContent = result.subtitle;
+            document.getElementById('result-description').textContent = result.description;
+            document.getElementById('result-next-steps').textContent = result.nextSteps;
+
+            const tipsContainer = document.getElementById('result-tips');
+            tipsContainer.innerHTML = '';
+            result.tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsContainer.appendChild(li);
+            });
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+
+        function copyResult() {
+            const title = document.getElementById('result-title').textContent;
+            const description = document.getElementById('result-description').textContent;
+            const nextSteps = document.getElementById('result-next-steps').textContent;
+            
+            const text = `Meu perfil de afiliado: ${title}\n\n${description}\n\n${nextSteps}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Resultado copiado para a área de transferência!');
+            }).catch(() => {
+                // Fallback para navegadores mais antigos
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Resultado copiado para a área de transferência!');
+            });
+        }
+    </script>
+</body>
+</html>
